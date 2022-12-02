@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+    <style>
+        /* Use a grid layout to organize the to-do list and input form */
+        #todo-list-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-gap: 10px;
+        }
+
+        /* Style the to-do list container */
+        #todo-list {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #eee;
+        }
+
+        /* Style the to-do list items */
+        .todo-item {
+            margin-bottom: 10px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+        }
+
+        /* Style the delete button */
+        .delete-button {
+            color: #ccc;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+
+    <div id="todo-list-container">
+        <form onsubmit="addItem(); return false;">
+            <input type="text" id="item-input" placeholder="Enter a new item" />
+            <button type="submit">Add Item</button>
+        </form>
+
+        <ul id="todo-list">
+            <!-- To-do list items will be added here -->
+        </ul>
+    </div>
+
+    <script>
+        // This function adds a new item to the to-do list
+        function addItem() {
+            // Get the item text from the input field
+            var itemText = document.getElementById('item-input').value;
+
+            // Clear the input field
+            document.getElementById('item-input').value = '';
+
+            // Create a new list item element
+            var li = document.createElement('li');
+            li.classList.add('todo-item');
+            li.innerText = itemText;
+
+            // Add a delete button to the list item
+            var deleteButton = document.createElement('button');
+            deleteButton.innerText = 'Delete';
+            deleteButton.classList.add('delete-button');
+            deleteButton.onclick = deleteItem;
+            li.appendChild(deleteButton);
+
+            // Add the list item to the to-do list
+            var todoList = document.getElementById('todo-list');
+            todoList.appendChild(li);
+        }
+
+        // This function deletes a to-do list item
+        function deleteItem(e) {
+            // Get the list item that the delete button belongs to
+            var listItem = e.target.parentElement;
+
+            // Remove the list item from the to-do list
+            var todoList = document.getElementById('todo-list');
+            todoList.removeChild(listItem);
+        }
+    </script>
+</body>
